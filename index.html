@@ -43,10 +43,32 @@
 </div>
 
 <script>
-document.getElementById("ime").innerText = "Marko Ranković";
-document.getElementById("pozicija").innerText = "Electrical Designer";
-document.getElementById("email").innerText = "marko.rankovic@tepma.rs";
-document.getElementById("telefon").innerText = "+381617444160";
+const zaposleni = {
+    1: {
+        ime: "Marko Ranković",
+        pozicija: "Electrical Designer",
+        email: "marko.rankovic@tepma.rs",
+        telefon: "+381617444160"
+    },
+    2: {
+        ime: "Goran Matić",
+        pozicija: "Electrical Designer",
+        email: "goran.matic@tepma.rs",
+        telefon: "+381644014145"
+    }
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id") || "1";
+
+const osoba = zaposleni[id];
+
+if (osoba) {
+    document.getElementById("ime").innerText = osoba.ime;
+    document.getElementById("pozicija").innerText = osoba.pozicija;
+    document.getElementById("email").innerText = osoba.email;
+    document.getElementById("telefon").innerText = osoba.telefon;
+}
 </script>
 
 </body>
