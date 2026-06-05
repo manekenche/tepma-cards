@@ -80,7 +80,7 @@ fetch(SHEET_URL)
     rows.forEach(row => {
 
         const employeeId =
-            String(row.c[0]?.v || "");
+    String(parseInt(row.c[0]?.v || 0));
 
         if (employeeId === id) {
 
