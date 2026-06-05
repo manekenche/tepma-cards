@@ -1,3 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TEPMA Digital Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1 id="ime">Učitavanje...</h1>
+    <h3 id="pozicija"></h3>
+
+    <p><b>Email:</b> <span id="email"></span></p>
+    <p><b>Telefon:</b> <span id="telefon"></span></p>
+
+    <a class="btn" href="https://tepma.rs" target="_blank">
+        Poseti TEPMA
+    </a>
+</div>
+
 <script>
 const zaposleni = {
     1: {
@@ -15,7 +59,7 @@ const zaposleni = {
 };
 
 const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const id = params.get("id") || "1";
 
 const osoba = zaposleni[id];
 
@@ -24,13 +68,14 @@ if (osoba) {
     document.getElementById("pozicija").innerText = osoba.pozicija;
     document.getElementById("email").innerText = osoba.email;
     document.getElementById("telefon").innerText = osoba.telefon;
-} else {
+}
+    else {
     document.querySelector(".card").innerHTML = `
         <h1>Kontakt nije pronađen</h1>
         <p>Osoba više nije zaposlena ili ne postoji.</p>
-        <a class="btn" href="https://tepma.rs" target="_blank">
-            Poseti TEPMA
-        </a>
-    `;
+        <a class="btn" href="https://tepma.rs">Poseti TEPMA</a>`;
 }
 </script>
+
+</body>
+</html>
