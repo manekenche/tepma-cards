@@ -59,27 +59,111 @@
 </div>
 
 <script>
-const zaposleni = {
-    1: {
-        ime: "Marko Ranković",
-        pozicija: "Electrical Designer",
-        email: "marko.rankovic@tepma.rs",
-        telefon: "+381617444160",
-        aktivan: true
-    },
-    2: {
-        ime: "Goran Matić",
-        pozicija: "Electrical Designer",
-        email: "goran.matic@tepma.rs",
-        telefon: "+381644014145",
-        aktivan: false
-    }
-};
+const SHEET_URL =
+"https://docs.google.com/spreadsheets/d/1jOpaVmam7OneQCrjqE4sfR89j3WkHMzoaPcEVqKsm9A/gviz/tq?tqx=out:json&sheet=Sheet1";
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "1";
 
-const osoba = zaposleni[id];
+fetch(SHEET_URL)
+.then(res => res.text())
+.then(text => {
+
+    const json = JSON.parse(
+        text.substring(47).slice(0, -2)
+    );
+
+    const rows = json.table.rows;
+
+    let osoba = null;
+
+    rows.forEach(row => {
+
+        const employeeId =
+            String(row.c[0]?.v || "");
+
+        if (employeeId === id) {
+
+            osoba = {
+                ime:
+                    row.c[1]?.v + " " +
+                    row.c[2]?.v,
+
+                pozicija:
+                    row.c[3]?.v,
+
+                email:
+                    row.c[4]?.v,
+
+                telefon:
+                    row.c[5]?.v,
+
+                aktivan:
+                    row.c[6]?.v === "DA"
+            };
+        }
+    });
+
+    if (osoba && osoba.aktivan === false) {
+        document.querySelector(".card").innerHTML = `
+            <h1>Kontakt nije dostupan</h1>
+            <p>Osoba više nije zaposlena u kompaniji TEPMA.</p>
+            <a class="btn" href="https://tepma.rs">
+                Poseti TEPMA
+            </a>
+        `;
+        return;
+    }
+
+    if (!osoba) {
+        document.querySelector(".card").innerHTML = `
+            <h1>Kontakt nije pronađen</h1>
+            <p>Osoba ne postoji.</p>
+        `;
+        return;
+    }
+
+    document.getElementById("ime").innerText =
+        osoba.ime;
+
+    document.getElementById("pozicija").innerText =
+        osoba.pozicija;
+
+    document.getElementById("email").innerText =
+        osoba.email;
+
+    document.getElementById("telefon").innerText =
+        osoba.telefon;
+
+    document.getElementById("emailLink").href =
+        "mailto:" + osoba.email;
+
+    document.getElementById("telefonLink").href =
+        "tel:" + osoba.telefon;
+
+    const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+FN:${osoba.ime}
+TITLE:${osoba.pozicija}
+EMAIL:${osoba.email}
+TEL:${osoba.telefon}
+ORG:TEPMA
+END:VCARD`;
+
+    const blob =
+        new Blob([vcard],
+        { type: 'text/vcard' });
+
+    const url =
+        URL.createObjectURL(blob);
+
+    document.getElementById("vcardBtn").href =
+        url;
+
+    document.getElementById("vcardBtn").download =
+        osoba.ime.replaceAll(" ", "_") + ".vcf";
+});
 
 if (osoba && osoba.aktivan === false) {
     document.querySelector(".card").innerHTML = `
