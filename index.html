@@ -64,13 +64,15 @@ const zaposleni = {
         ime: "Marko Ranković",
         pozicija: "Electrical Designer",
         email: "marko.rankovic@tepma.rs",
-        telefon: "+381617444160"
+        telefon: "+381617444160",
+        aktivan: true
     },
     2: {
         ime: "Goran Matić",
         pozicija: "Electrical Designer",
         email: "goran.matic@tepma.rs",
-        telefon: "+381644014145"
+        telefon: "+381644014145",
+        aktivan: false
     }
 };
 
@@ -78,6 +80,17 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "1";
 
 const osoba = zaposleni[id];
+
+if (osoba && osoba.aktivan === false) {
+    document.querySelector(".card").innerHTML = `
+        <h1>Kontakt nije dostupan</h1>
+        <p>Osoba više nije zaposlena u kompaniji TEPMA.</p>
+        <a class="btn" href="https://tepma.rs" target="_blank">
+            Poseti TEPMA
+        </a>
+    `;
+    throw new Error("Neaktivan korisnik");
+}
 
 if (osoba) {
     document.getElementById("ime").innerText = osoba.ime;
