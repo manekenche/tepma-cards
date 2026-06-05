@@ -82,6 +82,9 @@ fetch(SHEET_URL)
         const employeeId =
     String(parseInt(row.c[0]?.v || 0));
 
+console.log("ID iz sheeta:", employeeId);
+console.log("ID iz URL:", id);
+        
         if (employeeId === id) {
 
             osoba = {
