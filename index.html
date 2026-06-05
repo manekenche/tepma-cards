@@ -164,49 +164,6 @@ END:VCARD`;
     document.getElementById("vcardBtn").download =
         osoba.ime.replaceAll(" ", "_") + ".vcf";
 });
-
-if (osoba && osoba.aktivan === false) {
-    document.querySelector(".card").innerHTML = `
-        <h1>Kontakt nije dostupan</h1>
-        <p>Osoba više nije zaposlena u kompaniji TEPMA.</p>
-        <a class="btn" href="https://tepma.rs" target="_blank">
-            Poseti TEPMA
-        </a>
-    `;
-    throw new Error("Neaktivan korisnik");
-}
-
-if (osoba) {
-    document.getElementById("ime").innerText = osoba.ime;
-    document.getElementById("pozicija").innerText = osoba.pozicija;
-    document.getElementById("email").innerText = osoba.email;
-    document.getElementById("telefon").innerText = osoba.telefon;
-    document.getElementById("emailLink").href =
-    "mailto:" + osoba.email;
-    document.getElementById("telefonLink").href =
-    "tel:" + osoba.telefon;
-    const vcard =
-`BEGIN:VCARD
-VERSION:3.0
-FN:${osoba.ime}
-TITLE:${osoba.pozicija}
-EMAIL:${osoba.email}
-TEL:${osoba.telefon}
-ORG:TEPMA
-END:VCARD`;
-
-const blob = new Blob([vcard], { type: 'text/vcard' });
-const url = URL.createObjectURL(blob);
-
-document.getElementById("vcardBtn").href = url;
-
-document.getElementById("vcardBtn").download =
-osoba.ime.replaceAll(" ", "_") + ".vcf";
-}
-    else {
-    document.querySelector(".card").innerHTML = `
-        <h1>Kontakt nije pronađen</h1>
-        <a class="btn" href="https://tepma.rs">Poseti TEPMA</a>`;
 }
 </script>
 
