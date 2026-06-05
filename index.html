@@ -47,9 +47,15 @@
     </a>
 </p>
 
-    <a class="btn" href="https://tepma.rs" target="_blank">
-        Poseti TEPMA
-    </a>
+    <a class="btn" id="vcardBtn">
+    Sačuvaj kontakt
+</a>
+
+<br><br>
+
+<a class="btn" href="https://tepma.rs" target="_blank">
+    Poseti TEPMA
+</a>
 </div>
 
 <script>
@@ -82,6 +88,23 @@ if (osoba) {
     "mailto:" + osoba.email;
     document.getElementById("telefonLink").href =
     "tel:" + osoba.telefon;
+    const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+FN:${osoba.ime}
+TITLE:${osoba.pozicija}
+EMAIL:${osoba.email}
+TEL:${osoba.telefon}
+ORG:TEPMA
+END:VCARD`;
+
+const blob = new Blob([vcard], { type: 'text/vcard' });
+const url = URL.createObjectURL(blob);
+
+document.getElementById("vcardBtn").href = url;
+
+document.getElementById("vcardBtn").download =
+osoba.ime.replaceAll(" ", "_") + ".vcf";
 }
     else {
     document.querySelector(".card").innerHTML = `
