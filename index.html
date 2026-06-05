@@ -60,7 +60,7 @@
 
 <script>
 const SHEET_URL =
-"https://docs.google.com/spreadsheets/d/1jOpaVmam7OneQCrjqE4sfR89j3WkHMzoaPcEVqKsm9A/gviz/tq?tqx=out:json&sheet=Sheet1";
+"https://docs.google.com/spreadsheets/d/1jOpaVmam7OneQCrjqE4sfR89j3WkHMzoaPcEVqKsm9A/gviz/tq?tqx=out:json&sheet=Sheet1&t=" + Date.now();
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "1";
