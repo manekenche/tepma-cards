@@ -34,8 +34,18 @@
     <h1 id="ime">Učitavanje...</h1>
     <h3 id="pozicija"></h3>
 
-    <p><b>Email:</b> <span id="email"></span></p>
-    <p><b>Telefon:</b> <span id="telefon"></span></p>
+    <p>
+    <b>Email:</b>
+    <a id="emailLink">
+        <span id="email"></span>
+    </a>
+</p>
+    <p>
+    <b>Telefon:</b>
+    <a id="telefonLink">
+        <span id="telefon"></span>
+    </a>
+</p>
 
     <a class="btn" href="https://tepma.rs" target="_blank">
         Poseti TEPMA
@@ -68,6 +78,10 @@ if (osoba) {
     document.getElementById("pozicija").innerText = osoba.pozicija;
     document.getElementById("email").innerText = osoba.email;
     document.getElementById("telefon").innerText = osoba.telefon;
+    document.getElementById("emailLink").href =
+    "mailto:" + osoba.email;
+    document.getElementById("telefonLink").href =
+    "tel:" + osoba.telefon;
 }
     else {
     document.querySelector(".card").innerHTML = `
