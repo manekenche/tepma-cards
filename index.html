@@ -3,14 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>TEPMA Digital Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>TEPMA</h1>
-    <h2>Marko Petrović</h2>
-    <p>Sales Manager</p>
-    <p>Telefon: +381601234567</p>
-    <p>Email: marko@tepma.rs</p>
 
-    <a href="https://tepma.rs">Poseti TEPMA sajt</a>
+<div class="card">
+    <h1 id="ime">Učitavanje...</h1>
+    <h3 id="pozicija"></h3>
+
+    <p><b>Email:</b> <span id="email"></span></p>
+    <p><b>Telefon:</b> <span id="telefon"></span></p>
+
+    <a class="btn" href="https://tepma.rs" target="_blank">
+        Poseti TEPMA
+    </a>
+</div>
+
+<script>
+document.getElementById("ime").innerText = "Marko Ranković";
+document.getElementById("pozicija").innerText = "Electrical Designer";
+document.getElementById("email").innerText = "marko.rankovic@tepma.rs";
+document.getElementById("telefon").innerText = "+381617444160";
+</script>
+
 </body>
 </html>
